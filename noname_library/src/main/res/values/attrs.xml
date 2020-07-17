@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="NoNameBottomBarStyle" format="reference" />
+
+    <declare-styleable name="NoNameBottomBar">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="menu" format="reference"/>
+        <attr name="barSideMargins" format="dimension"/>
+        <attr name="indicatorColor" format="color"/>
+        <attr name="iconSize" format="dimension"/>
+        <attr name="iconTintActive" format="color"/>
+        <attr name="iconTint" format="color"/>
+
+        <attr name="indicatorType">
+            <flag name="point" value="1"/>
+            <flag name="line" value="0"/>
+        </attr>
+
+        <attr name="indicatorPosition">
+            <flag name="top" value="0"/>
+            <flag name="bottom" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>
