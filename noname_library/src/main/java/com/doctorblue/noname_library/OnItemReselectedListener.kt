@@ -1,5 +1,7 @@
 package com.doctorblue.noname_library
-
+/**
+ * Create by Nguyen Van Tan 7/2020
+ * */
 interface OnItemReselectedListener {
-    fun onItemReselect(pos: Int)
+    fun onItemReselect(id: Int)
 }

@@ -18,6 +18,9 @@ import androidx.annotation.XmlRes
 import androidx.core.graphics.drawable.DrawableCompat
 import kotlin.math.abs
 
+/**
+ * Create by Nguyen Van Tan 7/2020
+ * */
 class NoNameBottomBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -44,12 +47,6 @@ class NoNameBottomBar @JvmOverloads constructor(
             }
         }
 
-    @Dimension
-    var barSideMargins: Float = 0f
-        set(@Dimension value) {
-            field = value
-            invalidate()
-        }
 
     @ColorInt
     var indicatorColor: Int = DEFAULT_INDICATOR_COLOR
@@ -79,30 +76,37 @@ class NoNameBottomBar @JvmOverloads constructor(
             field = value
             invalidate()
         }
-    var indicatorType: Int = 0
+    var indicatorType: IndicatorType = IndicatorType.LINE
         set(value) {
             field = value
             invalidate()
         }
-    var indicatorPosition: Int = 1
+    var indicatorPosition: IndicatorPosition = IndicatorPosition.BOTTOM
         set(value) {
             field = value
             invalidate()
         }
+    var indicatorDuration: Long = 500
 
 
     var itemActiveIndex: Int = 0
         set(value) {
             field = value
+            onItemSelectedListener?.onItemSelect(items[value].id)
+            onItemSelected?.invoke(items[value].id)
             applyItemActiveIndex()
         }
 
-    private var indicatorLocation = barSideMargins
+    var isShow: Boolean = true
+
+
+    private var indicatorLocation = 0f
     private val rect = RectF()
     private var itemWidth: Float = 0f
     private var itemHeight: Float = 0f
     private var items = listOf<BottomBarItem>()
     private var currentIconTint: Int = itemIconTintActive
+    private var defaultY = this.y
 
 
     //Paint
@@ -117,8 +121,22 @@ class NoNameBottomBar @JvmOverloads constructor(
         color = indicatorColor
     }
 
+    // Listeners
+    var onItemSelectedListener: OnItemSelectedListener? = null
+
+    var onItemReselectedListener: OnItemReselectedListener? = null
+
+    var onItemSelected: ((Int) -> Unit)? = null
+
+    var onItemReselected: ((Int) -> Unit)? = null
+
     init {
         obtainStyledAttributes(attrs, defStyleAttr)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        defaultY = this.y
     }
 
     private fun obtainStyledAttributes(attrs: AttributeSet?, defStyleAttr: Int) {
@@ -138,10 +156,7 @@ class NoNameBottomBar @JvmOverloads constructor(
                 R.styleable.NoNameBottomBar_menu,
                 itemMenuRes
             )
-            barSideMargins = typedArray.getDimension(
-                R.styleable.NoNameBottomBar_barSideMargins,
-                barSideMargins
-            )
+
             indicatorColor =
                 typedArray.getColor(R.styleable.NoNameBottomBar_indicatorColor, indicatorColor)
 
@@ -154,12 +169,21 @@ class NoNameBottomBar @JvmOverloads constructor(
 
             itemIconTint = typedArray.getColor(R.styleable.NoNameBottomBar_iconTint, itemIconTint)
 
+            indicatorDuration =
+                typedArray.getInt(R.styleable.NoNameBottomBar_duration, indicatorDuration.toInt())
+                    .toLong()
 
-            indicatorType =
-                typedArray.getInt(R.styleable.NoNameBottomBar_indicatorType, indicatorType)
 
-            indicatorPosition =
-                typedArray.getInt(R.styleable.NoNameBottomBar_indicatorPosition, indicatorPosition)
+            val indicatorType =
+                typedArray.getInt(R.styleable.NoNameBottomBar_indicatorType, 0)
+
+            this.indicatorType = if (indicatorType == 0) IndicatorType.LINE else IndicatorType.POINT
+
+            val indicatorPosition =
+                typedArray.getInt(R.styleable.NoNameBottomBar_indicatorPosition, 1)
+
+            this.indicatorPosition =
+                if (indicatorPosition == 0) IndicatorPosition.TOP else IndicatorPosition.BOTTOM
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -171,7 +195,7 @@ class NoNameBottomBar @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        var lastX = barSideMargins
+        var lastX = 0f
         itemWidth = w / items.size.toFloat()
         itemHeight = h.toFloat()
 
@@ -195,11 +219,12 @@ class NoNameBottomBar @JvmOverloads constructor(
         )
 
 
-        if (indicatorType == 0) {
+        //Draw indicator
+        if (indicatorType == IndicatorType.LINE) {
             var top = itemHeight - itemIconSize / 10
             var bottom = itemHeight
 
-            if (indicatorPosition == 0) {
+            if (indicatorPosition == IndicatorPosition.TOP) {
                 top = 0f
                 bottom = itemIconSize / 10
             }
@@ -214,11 +239,12 @@ class NoNameBottomBar @JvmOverloads constructor(
             val radius = itemIconSize / 11.0f
             val x = indicatorLocation + itemWidth / 2
             var y = itemHeight - radius * 3
-            if (indicatorPosition == 0) y = radius
+            if (indicatorPosition == IndicatorPosition.TOP) y = radius
 
             canvas.drawCircle(x, y, radius, paintIndicator)
         }
 
+        //Draw icon
         for ((index, item) in items.withIndex()) {
 
             item.icon.mutate()
@@ -228,7 +254,7 @@ class NoNameBottomBar @JvmOverloads constructor(
 
             if (index == itemActiveIndex) {
 
-                top -= if (indicatorPosition == 0) top / 4 else top / 3
+                top -= if (indicatorPosition == IndicatorPosition.TOP) top / 4 else top / 3
 
                 bottom = top + itemIconSize.toInt()
             }
@@ -246,9 +272,9 @@ class NoNameBottomBar @JvmOverloads constructor(
             )
 
             item.icon.draw(canvas)
-
         }
     }
+
 
     private fun applyItemActiveIndex() {
         if (items.isNotEmpty()) {
@@ -264,7 +290,7 @@ class NoNameBottomBar @JvmOverloads constructor(
                 indicatorLocation,
                 items[itemActiveIndex].rect.left
             ).apply {
-                duration = 500
+                duration = indicatorDuration
                 interpolator = DecelerateInterpolator()
                 addUpdateListener { animation ->
                     indicatorLocation = animation.animatedValue as Float
@@ -273,7 +299,7 @@ class NoNameBottomBar @JvmOverloads constructor(
             }
 
             ValueAnimator.ofObject(ArgbEvaluator(), itemIconTint, itemIconTintActive).apply {
-                duration = 500
+                duration = indicatorDuration
                 addUpdateListener {
                     currentIconTint = it.animatedValue as Int
                 }
@@ -284,7 +310,7 @@ class NoNameBottomBar @JvmOverloads constructor(
 
     private fun animateAlpha(item: BottomBarItem, to: Int) {
         ValueAnimator.ofInt(item.alpha, to).apply {
-            duration = 500
+            duration = indicatorDuration
             addUpdateListener {
                 val value = it.animatedValue as Int
                 item.alpha = value
@@ -294,15 +320,35 @@ class NoNameBottomBar @JvmOverloads constructor(
         }
     }
 
-    // Listeners
-    var onItemSelectedListener: OnItemSelectedListener? = null
-
-
-    var onItemSelected: ((Int) -> Unit) = {
-        invalidate()
+    fun hide() {
+        if (isShow) {
+            ValueAnimator.ofFloat(y, y + height.toFloat()).apply {
+                duration = 500
+                interpolator = DecelerateInterpolator()
+                addUpdateListener {
+                    y = it.animatedValue as Float
+                }
+                start()
+            }
+            isShow = false
+        }
     }
 
-    var onItemReselected: ((Int) -> Unit)? = null
+    fun show() {
+        if (!isShow) {
+            ValueAnimator.ofFloat(y, defaultY).apply {
+                duration = 500
+                interpolator = DecelerateInterpolator()
+                addUpdateListener {
+                    y = it.animatedValue as Float
+                }
+                start()
+            }
+            isShow = true
+        }
+    }
+
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -311,10 +357,9 @@ class NoNameBottomBar @JvmOverloads constructor(
                 if (item.rect.contains(event.x, event.y)) {
                     if (i != itemActiveIndex) {
                         itemActiveIndex = i
-                        onItemSelectedListener?.onItemSelect(i)
-                        onItemSelected.invoke(i)
                     } else {
-                        onItemReselected?.invoke(i)
+                        onItemReselected?.invoke(item.id)
+                        onItemReselectedListener?.onItemReselect(item.id)
                     }
                 }
             }
@@ -322,7 +367,6 @@ class NoNameBottomBar @JvmOverloads constructor(
 
         return true
     }
-
 
     companion object {
         private const val INVALID_RES = -1

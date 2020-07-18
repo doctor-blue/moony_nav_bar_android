@@ -1,4 +1,4 @@
-package com.doctorblue.nonamebottonnar
+package com.doctorblue.nonamebottombar
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

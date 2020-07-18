@@ -6,7 +6,9 @@ import android.content.res.XmlResourceParser
 import android.graphics.drawable.Drawable
 import androidx.annotation.XmlRes
 import androidx.core.content.ContextCompat
-
+/**
+ * Create by Nguyen Van Tan 7/2020
+ * */
 class BottomBarParser(private val context: Context, @XmlRes res: Int) {
 
     private val parser: XmlResourceParser = context.resources.getXml(res)
@@ -29,7 +31,7 @@ class BottomBarParser(private val context: Context, @XmlRes res: Int) {
         val attributeCount = parser.attributeCount
         var itemText: String? = null
         var itemDrawable: Drawable? = null
-        var activatedIconDrawable: Drawable? = null
+        var id:Int?=null
 
         for (index in 0 until attributeCount) {
             when (parser.getAttributeName(index)) {
@@ -38,11 +40,8 @@ class BottomBarParser(private val context: Context, @XmlRes res: Int) {
                         context,
                         parser.getAttributeResourceValue(index, 0)
                     )
-                ACTIVATED_ICON_ATTRIBUTE -> {
-                    activatedIconDrawable = ContextCompat.getDrawable(
-                        context,
-                        parser.getAttributeResourceValue(index, 0)
-                    )
+                ID -> {
+                   id= parser.getAttributeResourceValue(index, 0)
                 }
 
                 TITLE_ATTRIBUTE -> {
@@ -58,14 +57,16 @@ class BottomBarParser(private val context: Context, @XmlRes res: Int) {
 
         if (itemDrawable == null)
             throw Throwable("Item icon can not be null!")
+        if (id==null)
+            throw Throwable("Item id can not be null!")
 
-        return BottomBarItem(itemText ?: "", itemDrawable,activatedIconDrawable, alpha = 0 )
+        return BottomBarItem(id,itemText ?: "", itemDrawable, alpha = 0 )
     }
 
     companion object {
         private const val ITEM_TAG = "item"
         private const val ICON_ATTRIBUTE = "icon"
         private const val TITLE_ATTRIBUTE = "title"
-        private const val ACTIVATED_ICON_ATTRIBUTE = "activated"
+        private const val ID = "id"
     }
 }

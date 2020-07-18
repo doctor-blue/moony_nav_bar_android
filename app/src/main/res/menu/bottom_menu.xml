@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/first_fragment"
-        android:title="d"
+        android:title="@string/home"
         android:icon="@drawable/ic_outline_home_24"/>
 
     <item
         android:id="@+id/second_fragment"
-        android:title="a"
+        android:title="@string/notification"
         android:icon="@drawable/ic_outline_notifications_24"
         />
 
     <item
         android:id="@+id/third_fragment"
-        android:title="b"
+        android:title="@string/folder"
         android:icon="@drawable/ic_outline_folder_24"/>
     <item
         android:id="@+id/fourthFragment"
-        android:title="b"
+        android:title="@string/user"
         android:icon="@drawable/ic_outline_account_24"/>
 
 </menu>

@@ -1,4 +1,4 @@
-package com.doctorblue.nonamebottonnar
+package com.doctorblue.nonamebottombar
 
 import org.junit.Test
 

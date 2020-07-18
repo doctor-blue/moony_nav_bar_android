@@ -1,4 +1,4 @@
-package com.doctorblue.nonamebottonnar
+package com.doctorblue.nonamebottombar
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -2,6 +2,6 @@ package com.doctorblue.noname_library
 /**
  * Create by Nguyen Van Tan 7/2020
  * */
-interface OnItemSelectedListener {
-    fun onItemSelect(id: Int)
+enum class IndicatorType {
+    POINT, LINE
 }
