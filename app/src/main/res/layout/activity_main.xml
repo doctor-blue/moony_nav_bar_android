@@ -110,11 +110,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_menu"
-        app:indicatorColor="@color/colorPrimary"
-        app:iconTintActive="@color/colorPrimary"
-        app:iconSize="24dp"
-        app:indicatorType="point"
-        app:indicatorPosition="bottom"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

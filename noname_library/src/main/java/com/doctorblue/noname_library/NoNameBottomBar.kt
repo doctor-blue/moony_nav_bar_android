@@ -17,6 +17,7 @@ import androidx.annotation.Dimension
 import androidx.annotation.XmlRes
 import androidx.core.graphics.drawable.DrawableCompat
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
 /**
  * Create by Nguyen Van Tan 7/2020
@@ -57,7 +58,7 @@ class NoNameBottomBar @JvmOverloads constructor(
         }
 
     @Dimension
-    var itemIconSize: Float = 0f
+    var itemIconSize: Float = (24f * resources.displayMetrics.density).roundToInt().toFloat()
         set(@Dimension value) {
             field = value
             invalidate()
@@ -370,7 +371,7 @@ class NoNameBottomBar @JvmOverloads constructor(
 
     companion object {
         private const val INVALID_RES = -1
-        private const val DEFAULT_INDICATOR_COLOR = Color.WHITE
+        private const val DEFAULT_INDICATOR_COLOR = Color.GRAY
         private const val OPAQUE = 255
         private const val TRANSPARENT = 0
     }
