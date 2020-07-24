@@ -11,6 +11,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
@@ -77,16 +78,19 @@ class NoNameBottomBar @JvmOverloads constructor(
             field = value
             invalidate()
         }
+
     var indicatorType: IndicatorType = IndicatorType.LINE
         set(value) {
             field = value
             invalidate()
         }
+
     var indicatorPosition: IndicatorPosition = IndicatorPosition.BOTTOM
         set(value) {
             field = value
             invalidate()
         }
+
     var indicatorDuration: Long = 500
 
 
@@ -107,7 +111,8 @@ class NoNameBottomBar @JvmOverloads constructor(
     private var itemHeight: Float = 0f
     private var items = listOf<BottomBarItem>()
     private var currentIconTint: Int = itemIconTintActive
-    private var defaultY = this.y
+    private var defaultY = 0f
+    private var bottomMargin = 0f
 
 
     //Paint
@@ -133,11 +138,6 @@ class NoNameBottomBar @JvmOverloads constructor(
 
     init {
         obtainStyledAttributes(attrs, defStyleAttr)
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        defaultY = this.y
     }
 
     private fun obtainStyledAttributes(attrs: AttributeSet?, defStyleAttr: Int) {
@@ -191,6 +191,14 @@ class NoNameBottomBar @JvmOverloads constructor(
         } finally {
             typedArray.recycle()
         }
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        val margins: ViewGroup.MarginLayoutParams? =
+            ViewGroup.MarginLayoutParams::class.java.cast(layoutParams)
+        margins?.let { bottomMargin = it.bottomMargin.toFloat() }
+        defaultY = y
     }
 
 
@@ -323,8 +331,8 @@ class NoNameBottomBar @JvmOverloads constructor(
 
     fun hide() {
         if (isShow) {
-            ValueAnimator.ofFloat(y, y + height.toFloat()).apply {
-                duration = 500
+            ValueAnimator.ofFloat(defaultY, defaultY + height.toFloat()+bottomMargin).apply {
+                duration = 300
                 interpolator = DecelerateInterpolator()
                 addUpdateListener {
                     y = it.animatedValue as Float
@@ -338,7 +346,7 @@ class NoNameBottomBar @JvmOverloads constructor(
     fun show() {
         if (!isShow) {
             ValueAnimator.ofFloat(y, defaultY).apply {
-                duration = 500
+                duration = 300
                 interpolator = DecelerateInterpolator()
                 addUpdateListener {
                     y = it.animatedValue as Float
@@ -348,7 +356,6 @@ class NoNameBottomBar @JvmOverloads constructor(
             isShow = true
         }
     }
-
 
 
     @SuppressLint("ClickableViewAccessibility")
