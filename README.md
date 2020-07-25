@@ -5,7 +5,9 @@
 
 ## Attention!
 ```
-Make sure the library version in your app is the latest as I will update and fix some bugs as soon as it is detected. You can create issues and notify me of errors you see or when you have any questions.
+Make sure the library version in your app is the latest 
+as I will update and fix some bugs as soon as it is detected. 
+You can create issues and notify me of errors you see or when you have any questions.
 ```
 
 ## GIF
@@ -111,7 +113,7 @@ OR
 }
 ```
 
-** If you don't like callback, you can use [Navigation Components](https://developer.android.com/guide/navigation/).
+## If you don't like callback, you can use [Navigation Components](https://developer.android.com/guide/navigation/).
 - Setup Navigation Component i.e. Add dependenccy to your project, create a Navigation Graph etc.
 - For each Fragment in your Navigation Graph, ensure that the Fragment's `id` is the same as the MenuItems in your Menu i.e res/menu/ folder
 ```xml
@@ -219,6 +221,6 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.doctor-blue:NoNameBottomBar:v0.0.2'
+    implementation 'com.github.doctor-blue:NoNameBottomBar:v0.0.3'
 }
 ```
