@@ -3,6 +3,11 @@
 [![](https://jitpack.io/v/doctor-blue/NoNameBottomBar.svg)](https://jitpack.io/#doctor-blue/NoNameBottomBar)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 
+## Attention!
+```
+Make sure the library version in your app is the latest as I will update and fix some bugs as soon as it is detected. You can create issues and notify me of errors you see or when you have any questions.
+```
+
 ## GIF
 <img src="https://raw.githubusercontent.com/doctor-blue/NoNameBottomBar/master/images/demo2.gif" width="272" height="550"/><img src="https://raw.githubusercontent.com/doctor-blue/NoNameBottomBar/master/images/demo1.gif"  width="272" height="550" />
 
@@ -105,6 +110,103 @@ OR
 
 }
 ```
+
+** If you don't like callback, you can use [Navigation Components](https://developer.android.com/guide/navigation/).
+- Setup Navigation Component i.e. Add dependenccy to your project, create a Navigation Graph etc.
+- For each Fragment in your Navigation Graph, ensure that the Fragment's `id` is the same as the MenuItems in your Menu i.e res/menu/ folder
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/first_fragment"
+        android:title="@string/home"
+        android:icon="@drawable/ic_outline_home_24"/>
+
+    <item
+        android:id="@+id/second_fragment"
+        android:title="@string/notification"
+        android:icon="@drawable/ic_outline_notifications_24"
+        />
+
+    <item
+        android:id="@+id/third_fragment"
+        android:title="@string/folder"
+        android:icon="@drawable/ic_outline_folder_24"/>
+    <item
+        android:id="@+id/fourth_fragment"
+        android:title="@string/user"
+        android:icon="@drawable/ic_outline_account_24"/>
+
+</menu>
+```
+
+
+- Navigation Graph i.e res/navigation/ folder
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/first_fragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/first_fragment"
+        android:name="com.doctorblue.nonamebottombar.FirstFragment"
+        android:label="fragment_first"
+        tools:layout="@layout/fragment_first" >
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/second_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/second_fragment"
+        android:name="com.doctorblue.nonamebottombar.SecondFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_second" >
+        <action
+            android:id="@+id/action_secondFragment_to_thirdFragment"
+            app:destination="@id/third_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/third_fragment"
+        android:name="com.doctorblue.nonamebottombar.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third" >
+        <action
+            android:id="@+id/action_thirdFragment_to_fourthFragment2"
+            app:destination="@id/fourth_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fourth_fragment"
+        android:name="com.doctorblue.nonamebottombar.FourthFragment"
+        android:label="fragment_fourth"
+        tools:layout="@layout/fragment_fourth" />
+</navigation>
+```
+
+- In your activity i.e `MainActivity`
+```kotlin
+
+ private lateinit var navController: NavController
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        navController = findNavController(R.id.main_fragment)
+        no_name_bottombar.setupWithNavController(navController)
+
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        navController.navigateUp()
+        return true
+    }
+```
+
 
 ## Setup
 

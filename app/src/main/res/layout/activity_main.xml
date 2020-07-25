@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#DEE9FD"
     tools:context=".MainActivity">
-    <LinearLayout
+   <!-- <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="0dp"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:text="show or hide bottom bar"
             android:id="@+id/btn_show_or_hide"/>
-    </LinearLayout>
+    </LinearLayout>-->
   <!--  <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -102,6 +102,17 @@
         android:id="@+id/fragment_layout"
         app:layout_constraintBottom_toTopOf="@id/no_name_bottombar"/>
     -->
+    <fragment
+        android:id="@+id/main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph='@navigation/nav_graph'
+        app:layout_constraintBottom_toTopOf="@+id/no_name_bottombar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <com.doctorblue.noname_library.NoNameBottomBar
         android:id="@+id/no_name_bottombar"
         android:layout_width="match_parent"

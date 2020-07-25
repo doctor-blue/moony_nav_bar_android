@@ -2,73 +2,30 @@ package com.doctorblue.nonamebottombar
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.doctorblue.noname_library.IndicatorPosition
-import com.doctorblue.noname_library.IndicatorType
-import com.doctorblue.noname_library.OnItemReselectedListener
-import com.doctorblue.noname_library.OnItemSelectedListener
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        testProperties()
+        //testProperties()
         //testWithFragment()
 
-        //default item selected
-        no_name_bottombar.itemActiveIndex = 0
+        navController = findNavController(R.id.main_fragment)
+        no_name_bottombar.setupWithNavController(navController)
+
     }
 
-   /* private fun testWithFragment() {
-        no_name_bottombar.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelect(id: Int) {
-                when (id) {
-                    R.id.first_fragment -> {
-                        val firstFragment = FirstFragment()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_layout, firstFragment).commit()
-                    }
-                    R.id.second_fragment -> {
-                        val secondFragment = SecondFragment()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_layout, secondFragment).commit()
-                    }
-                    R.id.third_fragment -> {
-                        val thirdFragment = ThirdFragment()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_layout, thirdFragment).commit()
-                    }
-                    R.id.fourthFragment -> {
-                        val fourthFragment = FourthFragment()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_layout, fourthFragment).commit()
-                    }
-                }
-            }
 
-        }
-        no_name_bottombar.onItemReselectedListener = object : OnItemReselectedListener {
-            override fun onItemReselect(id: Int) {
-                when (id) {
-                    R.id.first_fragment -> {
-                        //Code here
-                    }
-                    R.id.second_fragment -> {
-                        //Code here
-                    }
-                    R.id.third_fragment -> {
-                        //Code here
-                    }
-                    R.id.fourthFragment -> {
-                        //Code here
-                    }
-                }
-            }
+    override fun onSupportNavigateUp(): Boolean {
+        navController.navigateUp()
+        return true
+    }
 
-        }
-    }*/
-
-     private fun testProperties() {
+    /* private fun testProperties() {
          rg_indicator_position.setOnCheckedChangeListener { _, i ->
              if (i == rb_bottom.id) {
                  no_name_bottombar.indicatorPosition = IndicatorPosition.BOTTOM
@@ -95,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                  no_name_bottombar.show()
          }
 
-     }
+     }*/
 
 
 }

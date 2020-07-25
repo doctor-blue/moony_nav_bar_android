@@ -9,20 +9,26 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.DecelerateInterpolator
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
+import androidx.annotation.RestrictTo
+import androidx.annotation.RestrictTo.Scope
 import androidx.annotation.XmlRes
+import androidx.appcompat.view.SupportMenuInflater
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import kotlin.math.abs
 import kotlin.math.roundToInt
+
 
 /**
  * Create by Nguyen Van Tan 7/2020
  * */
+@RestrictTo(Scope.LIBRARY_GROUP)
 class NoNameBottomBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -97,8 +103,6 @@ class NoNameBottomBar @JvmOverloads constructor(
     var itemActiveIndex: Int = 0
         set(value) {
             field = value
-            onItemSelectedListener?.onItemSelect(items[value].id)
-            onItemSelected?.invoke(items[value].id)
             applyItemActiveIndex()
         }
 
@@ -113,6 +117,10 @@ class NoNameBottomBar @JvmOverloads constructor(
     private var currentIconTint: Int = itemIconTintActive
     private var defaultY = 0f
     private var bottomMargin = 0f
+
+    @SuppressLint("RestrictedApi")
+    private var menu: MenuBuilder = MenuBuilder(context)
+    private var menuInflater: MenuInflater? = null
 
 
     //Paint
@@ -140,6 +148,7 @@ class NoNameBottomBar @JvmOverloads constructor(
         obtainStyledAttributes(attrs, defStyleAttr)
     }
 
+    @SuppressLint("RestrictedApi")
     private fun obtainStyledAttributes(attrs: AttributeSet?, defStyleAttr: Int) {
         val typedArray = context.theme.obtainStyledAttributes(
             attrs,
@@ -157,6 +166,7 @@ class NoNameBottomBar @JvmOverloads constructor(
                 R.styleable.NoNameBottomBar_menu,
                 itemMenuRes
             )
+            inflate()
 
             indicatorColor =
                 typedArray.getColor(R.styleable.NoNameBottomBar_indicatorColor, indicatorColor)
@@ -186,11 +196,47 @@ class NoNameBottomBar @JvmOverloads constructor(
             this.indicatorPosition =
                 if (indicatorPosition == 0) IndicatorPosition.TOP else IndicatorPosition.BOTTOM
 
+            menu.setCallback(@SuppressLint("RestrictedApi")
+            object : MenuBuilder.Callback {
+                override fun onMenuItemSelected(
+                    menu: MenuBuilder,
+                    item: MenuItem
+                ): Boolean {
+                    /*return if (onItemReselectedListener != null && item.itemId == items[itemActiveIndex].id) {
+                       *//* this@BottomNavigationView.reselectedListener.onNavigationItemReselected(
+                            item
+                        )*//*
+                        true
+                    } else {
+                        *//*this@BottomNavigationView.selectedListener != null && !this@BottomNavigationView.selectedListener.onNavigationItemSelected(
+                            item
+                        )*//*
+                        false
+                    }*/
+                    return true
+                }
+
+                override fun onMenuModeChange(menu: MenuBuilder) {}
+            })
+
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
             typedArray.recycle()
         }
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun inflate() {
+        if (menuInflater == null) {
+            menuInflater = SupportMenuInflater(this.context)
+        }
+
+        menuInflater!!.inflate(itemMenuRes, menu)
+    }
+
+    fun setupWithNavController(navController: NavController) {
+        NavigationHelper.setupWithNavController(this.menu, this, navController)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -331,7 +377,7 @@ class NoNameBottomBar @JvmOverloads constructor(
 
     fun hide() {
         if (isShow) {
-            ValueAnimator.ofFloat(defaultY, defaultY + height.toFloat()+bottomMargin).apply {
+            ValueAnimator.ofFloat(defaultY, defaultY + height.toFloat() + bottomMargin).apply {
                 duration = 300
                 interpolator = DecelerateInterpolator()
                 addUpdateListener {
@@ -365,9 +411,11 @@ class NoNameBottomBar @JvmOverloads constructor(
                 if (item.rect.contains(event.x, event.y)) {
                     if (i != itemActiveIndex) {
                         itemActiveIndex = i
+                        onItemSelectedListener?.onItemSelect(item.id, i)
+                        onItemSelected?.invoke(item.id)
                     } else {
                         onItemReselected?.invoke(item.id)
-                        onItemReselectedListener?.onItemReselect(item.id)
+                        onItemReselectedListener?.onItemReselect(item.id, i)
                     }
                 }
             }
