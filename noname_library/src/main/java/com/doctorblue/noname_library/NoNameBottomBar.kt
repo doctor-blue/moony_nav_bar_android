@@ -20,7 +20,6 @@ import androidx.appcompat.view.SupportMenuInflater
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -34,6 +33,7 @@ class NoNameBottomBar @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.NoNameBottomBarStyle
 ) : View(context, attrs, defStyleAttr) {
+
 
     //Attributes
 
@@ -244,7 +244,6 @@ class NoNameBottomBar @JvmOverloads constructor(
         val margins: ViewGroup.MarginLayoutParams? =
             ViewGroup.MarginLayoutParams::class.java.cast(layoutParams)
         margins?.let { bottomMargin = it.bottomMargin.toFloat() }
-        defaultY = y
     }
 
 
@@ -390,6 +389,7 @@ class NoNameBottomBar @JvmOverloads constructor(
     }
 
     fun show() {
+        if (defaultY == 0f) defaultY = y
         if (!isShow) {
             ValueAnimator.ofFloat(y, defaultY).apply {
                 duration = 300

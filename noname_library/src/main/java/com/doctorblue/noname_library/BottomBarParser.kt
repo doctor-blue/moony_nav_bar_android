@@ -6,6 +6,7 @@ import android.content.res.XmlResourceParser
 import android.graphics.drawable.Drawable
 import androidx.annotation.XmlRes
 import androidx.core.content.ContextCompat
+
 /**
  * Create by Nguyen Van Tan 7/2020
  * */
