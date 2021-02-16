@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.doctorblue.noname_library.IndicatorPosition
+import com.doctorblue.noname_library.IndicatorType
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -11,21 +13,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //testProperties()
+        testProperties()
         //testWithFragment()
 
-        navController = findNavController(R.id.main_fragment)
-        no_name_bottombar.setupWithNavController(navController)
+//        navController = findNavController(R.id.main_fragment)
+//        no_name_bottombar.setupWithNavController(navController)
 
     }
 
 
     override fun onSupportNavigateUp(): Boolean {
-        navController.navigateUp()
+//        navController.navigateUp()
         return true
     }
 
-    /* private fun testProperties() {
+     private fun testProperties() {
          rg_indicator_position.setOnCheckedChangeListener { _, i ->
              if (i == rb_bottom.id) {
                  no_name_bottombar.indicatorPosition = IndicatorPosition.BOTTOM
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                  no_name_bottombar.show()
          }
 
-     }*/
+     }
 
 
 }

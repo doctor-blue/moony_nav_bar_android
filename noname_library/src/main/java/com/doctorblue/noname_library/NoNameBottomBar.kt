@@ -115,7 +115,7 @@ class NoNameBottomBar @JvmOverloads constructor(
     private var itemHeight: Float = 0f
     private var items = listOf<BottomBarItem>()
     private var currentIconTint: Int = itemIconTintActive
-    private var defaultY = 0f
+    private val defaultY by lazy { y }
     private var bottomMargin = 0f
 
     @SuppressLint("RestrictedApi")
@@ -389,7 +389,6 @@ class NoNameBottomBar @JvmOverloads constructor(
     }
 
     fun show() {
-        if (defaultY == 0f) defaultY = y
         if (!isShow) {
             ValueAnimator.ofFloat(y, defaultY).apply {
                 duration = 300
