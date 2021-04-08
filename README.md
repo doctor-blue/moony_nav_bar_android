@@ -221,6 +221,6 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.doctor-blue:NoNameBottomBar:v0.0.3'
+    implementation 'com.github.doctor-blue:NoNameBottomBar:v0.0.4'
 }
 ```
