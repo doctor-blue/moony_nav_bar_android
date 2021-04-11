@@ -9,6 +9,10 @@ Make sure the library version in your app is the latest
 as I will update and fix some bugs as soon as it is detected. 
 You can create issues and notify me of errors you see or when you have any questions.
 ```
+## Donate
+<a href="https://www.buymeacoffee.com/doctorblue" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/doctorblue00)
+
 
 ## GIF
 <img src="https://raw.githubusercontent.com/doctor-blue/NoNameBottomBar/master/images/demo2.gif" width="272" height="550"/><img src="https://raw.githubusercontent.com/doctor-blue/NoNameBottomBar/master/images/demo1.gif"  width="272" height="550" />
