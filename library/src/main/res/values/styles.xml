@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.Design.BottomBar" parent="android:Widget"/>
+    <!--Base Style-->
+    <style name="Widget.MoonyNavBar" parent="Widget.Design.BottomBar">
+        <item name="backgroundColor">@color/white</item>
+        <item name="indicatorColor">@color/colorPrimary</item>
+        <item name="iconSize">24dp</item>
+        <item name="iconTintActive">@color/colorPrimaryDark</item>
+        <item name="indicatorType">line</item>
+        <item name="indicatorPosition">top</item>
+        <item name="duration">500</item>
+    </style>
+</resources>

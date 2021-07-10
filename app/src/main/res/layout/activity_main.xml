@@ -1,126 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#DEE9FD"
-    tools:context=".MainActivity">
-    <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center|top"
-        app:layout_constraintBottom_toTopOf="@id/no_name_bottombar">
-        <TextView
+        android:layout_height="match_parent"
+        android:background="#DEE9FD"
+        tools:context=".MainActivity">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Indicator position"
-            android:textSize="25sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"/>
+            android:orientation="vertical"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center|top"
+            app:layout_constraintBottom_toTopOf="@id/no_name_bottombar">
 
-        <RadioGroup
-            android:id="@+id/rg_indicator_position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkedButton="@id/rb_bottom">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Indicator position"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:gravity="center" />
 
-            <RadioButton
-                android:id="@+id/rb_top"
+            <RadioGroup
+                android:id="@+id/rg_indicator_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top" />
+                android:checkedButton="@id/rb_bottom">
 
-            <RadioButton
-                android:id="@+id/rb_bottom"
+                <RadioButton
+                    android:id="@+id/rb_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Top" />
+
+                <RadioButton
+                    android:id="@+id/rb_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bottom" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Indicator type"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:gravity="center" />
+
+            <RadioGroup
+                android:id="@+id/rg_indicator_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bottom" />
-        </RadioGroup>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Indicator type"
-            android:textSize="25sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"/>
+                android:checkedButton="@id/rb_point">
 
-        <RadioGroup
-            android:id="@+id/rg_indicator_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkedButton="@id/rb_point">
+                <RadioButton
+                    android:id="@+id/rb_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Point" />
 
-            <RadioButton
-                android:id="@+id/rb_point"
+                <RadioButton
+                    android:id="@+id/rb_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Line" />
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Animation duration"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:gravity="center" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:inputType="number"
+                android:id="@+id/edt_duration"
+                android:textColor="@android:color/black" />
+
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Point" />
+                android:id="@+id/btn_set_duration"
+                android:text="Set duration" />
 
-            <RadioButton
-                android:id="@+id/rb_line"
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Line" />
+                android:text="show or hide bottom bar"
+                android:id="@+id/btn_show_or_hide" />
+        </LinearLayout>
 
-        </RadioGroup>
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Animation duration"
-            android:textSize="25sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"/>
-        <EditText
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/fragment_layout"
+            app:layout_constraintBottom_toTopOf="@id/no_name_bottombar" />
+        <!--    <fragment-->
+        <!--        android:id="@+id/main_fragment"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="0dp"-->
+        <!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+        <!--        app:defaultNavHost="true"-->
+        <!--        app:navGraph='@navigation/nav_graph'-->
+        <!--        app:layout_constraintBottom_toTopOf="@+id/no_name_bottombar"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+        <com.devcomentry.library.MoonyNavBar
+            android:id="@+id/no_name_bottombar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:inputType="number"
-            android:id="@+id/edt_duration"
-            android:textColor="@android:color/black"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_set_duration"
-            android:text="Set duration"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="show or hide bottom bar"
-            android:id="@+id/btn_show_or_hide"/>
-    </LinearLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/fragment_layout"
-        app:layout_constraintBottom_toTopOf="@id/no_name_bottombar"/>
-<!--    <fragment-->
-<!--        android:id="@+id/main_fragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        app:defaultNavHost="true"-->
-<!--        app:navGraph='@navigation/nav_graph'-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/no_name_bottombar"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-    <com.doctorblue.noname_library.NoNameBottomBar
-        android:id="@+id/no_name_bottombar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        style="@style/Widget.NoNameLib.BottomBar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_menu"
-        />
+            android:layout_height="50dp"
+            style="@style/Widget.MoonyNavBar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:menu="@menu/bottom_menu" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
