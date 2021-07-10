@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/first_fragment"
-        android:name="com.doctorblue.nonamebottombar.FirstFragment"
+        android:name="com.devcomentry.moonynavbar.FirstFragment"
         android:label="fragment_first"
         tools:layout="@layout/fragment_first" >
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/second_fragment"
-        android:name="com.doctorblue.nonamebottombar.SecondFragment"
+        android:name="com.devcomentry.moonynavbar.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/third_fragment"
-        android:name="com.doctorblue.nonamebottombar.ThirdFragment"
+        android:name="com.devcomentry.moonynavbar.ThirdFragment"
         android:label="fragment_third"
         tools:layout="@layout/fragment_third" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/fourth_fragment"
-        android:name="com.doctorblue.nonamebottombar.FourthFragment"
+        android:name="com.devcomentry.moonynavbar.FourthFragment"
         android:label="fragment_fourth"
         tools:layout="@layout/fragment_fourth" />
 </navigation>

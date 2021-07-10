@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center|top"
-            app:layout_constraintBottom_toTopOf="@id/no_name_bottombar">
+            app:layout_constraintBottom_toTopOf="@id/moony_nav_bar">
 
             <TextView
                 android:layout_width="match_parent"
@@ -114,27 +114,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/fragment_layout"
-            app:layout_constraintBottom_toTopOf="@id/no_name_bottombar" />
-        <!--    <fragment-->
-        <!--        android:id="@+id/main_fragment"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="0dp"-->
-        <!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-        <!--        app:defaultNavHost="true"-->
-        <!--        app:navGraph='@navigation/nav_graph'-->
-        <!--        app:layout_constraintBottom_toTopOf="@+id/no_name_bottombar"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+            app:layout_constraintBottom_toTopOf="@id/moony_nav_bar" />
+<!--            <fragment-->
+<!--                android:id="@+id/main_fragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--                app:defaultNavHost="true"-->
+<!--                app:navGraph='@navigation/nav_graph'-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/moony_nav_bar"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
         <com.devcomentry.library.MoonyNavBar
-            android:id="@+id/no_name_bottombar"
+            style="@style/Widget.MoonyNavBar"
+            android:id="@+id/moony_nav_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            style="@style/Widget.MoonyNavBar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/bottom_menu" />
+            app:menu="@menu/bottom_menu"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

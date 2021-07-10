@@ -1,21 +1,16 @@
-# NoNameBottomBar
+# MoonyNavBar
 
-[![](https://jitpack.io/v/doctor-blue/NoNameBottomBar.svg)](https://jitpack.io/#doctor-blue/NoNameBottomBar)
+[![](https://jitpack.io/v/doctor-blue/moony_nav_bar_android.svg)](https://jitpack.io/#doctor-blue/moony_nav_bar_android)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 
-## Attention!
-```
-Make sure the library version in your app is the latest 
-as I will update and fix some bugs as soon as it is detected. 
-You can create issues and notify me of errors you see or when you have any questions.
-```
+## Flutter version [here](https://github.com/doctor-blue/moony_nav_bar_flutter)
 ## Donate
 <a href="https://www.buymeacoffee.com/doctorblue" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/doctorblue00)
 
 
 ## GIF
-<img src="https://raw.githubusercontent.com/doctor-blue/NoNameBottomBar/master/images/demo2.gif" width="272" height="550"/><img src="https://raw.githubusercontent.com/doctor-blue/NoNameBottomBar/master/images/demo1.gif"  width="272" height="550" />
+<img src="https://raw.githubusercontent.com/doctor-blue/moony_nav_bar_android/master/images/demo2.gif" width="272" height="550"/><img src="https://raw.githubusercontent.com/doctor-blue/moony_nav_bar_android/master/images/demo1.gif"  width="272" height="550" />
 
 
 -   Create menu.xml under your res/menu/ folder
@@ -49,8 +44,8 @@ You can create issues and notify me of errors you see or when you have any quest
 -   Add view into your layout file
 ## Sample: 
 ```xml
- <com.doctorblue.noname_library.NoNameBottomBar
-        android:id="@+id/no_name_bottombar"
+ <com.devcomentry.library.MoonyNavBar
+        android:id="@+id/moony_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -61,8 +56,8 @@ You can create issues and notify me of errors you see or when you have any quest
 ```
 ## Customization
 ```xml
-   <com.doctorblue.noname_library.NoNameBottomBar
-        android:id="@+id/no_name_bottombar"
+   <com.devcomentry.library.MoonyNavBar
+        android:id="@+id/moony_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -81,15 +76,15 @@ You can create issues and notify me of errors you see or when you have any quest
 ```
 
 
--   Use NoNameBottomBar callbacks in your activity
+-   Use MoonyNavBar callbacks in your activity
 ```kotlin
-no_name_bottombar.onItemSelected = {
+binding.moonyNavBar.onItemSelected = {
     if(it==R.id.your_menu_id){
       //your code
     }
 }
 
-bottomBar.onItemReselected = {
+binding.moonyNavBar.onItemReselected = {
      if(it==R.id.your_menu_id){
       //your code
     }
@@ -99,7 +94,7 @@ bottomBar.onItemReselected = {
 OR
 
 ```kotlin
-  no_name_bottombar.onItemSelectedListener = object : OnItemSelectedListener {
+  binding.moonyNavBar.onItemSelectedListener = object : OnItemSelectedListener {
     override fun onItemSelect(id: Int) {
         if (it == R.id.your_menu_id) {
             //your code
@@ -107,7 +102,7 @@ OR
     }
 }
 
- no_name_bottombar.onItemReselectedListener = object : OnItemReselectedListener {
+ binding.moonyNavBar.onItemReselectedListener = object : OnItemReselectedListener {
     override fun onItemReselect(id: Int) {
         if (it == R.id.your_menu_id) {
             //your code
@@ -160,7 +155,7 @@ OR
 
     <fragment
         android:id="@+id/first_fragment"
-        android:name="com.doctorblue.nonamebottombar.FirstFragment"
+        android:name="com.devcomentry.moonynavbar.FirstFragment"
         android:label="fragment_first"
         tools:layout="@layout/fragment_first" >
         <action
@@ -169,7 +164,7 @@ OR
     </fragment>
     <fragment
         android:id="@+id/second_fragment"
-        android:name="com.doctorblue.nonamebottombar.SecondFragment"
+        android:name="com.devcomentry.moonynavbar.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" >
         <action
@@ -178,7 +173,7 @@ OR
     </fragment>
     <fragment
         android:id="@+id/third_fragment"
-        android:name="com.doctorblue.nonamebottombar.ThirdFragment"
+        android:name="com.devcomentry.moonynavbar.ThirdFragment"
         android:label="fragment_third"
         tools:layout="@layout/fragment_third" >
         <action
@@ -187,7 +182,7 @@ OR
     </fragment>
     <fragment
         android:id="@+id/fourth_fragment"
-        android:name="com.doctorblue.nonamebottombar.FourthFragment"
+        android:name="com.devcomentry.moonynavbar.FourthFragment"
         android:label="fragment_fourth"
         tools:layout="@layout/fragment_fourth" />
 </navigation>
@@ -196,13 +191,17 @@ OR
 - In your activity i.e `MainActivity`
 ```kotlin
 
- private lateinit var navController: NavController
+    private lateinit var navController: NavController
+
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         navController = findNavController(R.id.main_fragment)
-        no_name_bottombar.setupWithNavController(navController)
+        binding.moonyNavBar.setupWithNavController(navController)
 
     }
 
@@ -225,6 +224,6 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.doctor-blue:NoNameBottomBar:v0.0.4'
+	implementation 'com.github.doctor-blue:moony_nav_bar_android:v2.0.0'
 }
 ```

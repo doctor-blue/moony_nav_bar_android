@@ -35,28 +35,28 @@ class MainActivity : AppCompatActivity() {
     private fun testProperties() {
         binding.rgIndicatorPosition.setOnCheckedChangeListener { _, i ->
             if (i == binding.rbBottom.id) {
-                binding.noNameBottombar.indicatorPosition = IndicatorPosition.BOTTOM
+                binding.moonyNavBar.indicatorPosition = IndicatorPosition.BOTTOM
             } else {
-                binding.noNameBottombar.indicatorPosition = IndicatorPosition.TOP
+                binding.moonyNavBar.indicatorPosition = IndicatorPosition.TOP
 
             }
         }
 
         binding.rgIndicatorType.setOnCheckedChangeListener { _, i ->
             if (i == binding.rbLine.id)
-                binding.noNameBottombar.indicatorType = IndicatorType.LINE
+                binding.moonyNavBar.indicatorType = IndicatorType.LINE
             else
-                binding.noNameBottombar.indicatorType = IndicatorType.POINT
+                binding.moonyNavBar.indicatorType = IndicatorType.POINT
         }
         binding.btnSetDuration.setOnClickListener {
-            binding.noNameBottombar.indicatorDuration = binding.edtDuration.text.toString().toLong()
+            binding.moonyNavBar.indicatorDuration = binding.edtDuration.text.toString().toLong()
 
         }
         binding.btnShowOrHide.setOnClickListener {
-            if (binding.noNameBottombar.isShow)
-                binding.noNameBottombar.hide()
+            if (binding.moonyNavBar.isShow)
+                binding.moonyNavBar.hide()
             else
-                binding.noNameBottombar.show()
+                binding.moonyNavBar.show()
         }
 
     }
