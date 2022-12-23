@@ -135,6 +135,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/bottom_menu"
+            app:indicatorType="none"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

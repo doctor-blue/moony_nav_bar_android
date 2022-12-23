@@ -189,7 +189,13 @@ class MoonyNavBar @JvmOverloads constructor(
             val indicatorType =
                 typedArray.getInt(R.styleable.MoonyNavBar_indicatorType, 0)
 
-            this.indicatorType = if (indicatorType == 0) IndicatorType.LINE else IndicatorType.POINT
+            if (indicatorType == 0)
+
+                this.indicatorType = IndicatorType.LINE
+            if (indicatorType == 1)
+                this.indicatorType = IndicatorType.POINT
+            if (indicatorType == 2)
+                this.indicatorType = IndicatorType.NONE
 
             val indicatorPosition =
                 typedArray.getInt(R.styleable.MoonyNavBar_indicatorPosition, 1)
@@ -290,7 +296,9 @@ class MoonyNavBar @JvmOverloads constructor(
             rect.bottom = bottom
 
             canvas.drawRect(rect, paintIndicator)
-        } else {
+        }
+
+        if (indicatorType == IndicatorType.POINT) {
             val radius = itemIconSize / 11.0f
             val x = indicatorLocation + itemWidth / 2
             var y = itemHeight - radius * 3
